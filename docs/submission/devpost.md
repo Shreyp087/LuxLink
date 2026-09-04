@@ -97,7 +97,7 @@ color. There is no chatbot layout, glassmorphism, decorative gradient, or genera
 - Offline reload of the installed application and persisted inbox.
 - Append-only signed relay custody with tamper and limit rejection.
 - Explicit fingerprint confirmation, trust removal, and current-trust display.
-- Cross-browser end-to-end coverage on Chromium, Firefox, and WebKit.
+- End-to-end coverage on desktop Chromium, mobile Chrome, and mobile Safari/WebKit.
 - Automated formatting, linting, type checks, unit tests, production builds, CodeQL, dependency
   review, and lockfile audit in GitHub Actions.
 

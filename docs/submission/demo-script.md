@@ -65,7 +65,7 @@ again without changing the original message. When the network stops, the message
 - Turn network emulation off and reload to show the precached shell and saved inbox.
 - Download a `.luxlink` frame pack and import it in a fresh browser profile.
 - Use a second phone or laptop to show live screen-to-camera reception.
-- Run `pnpm validate` and show the three-browser Playwright result.
+- Run `pnpm validate` and show the three-profile Playwright result.
 
 ## Recording fallback
 

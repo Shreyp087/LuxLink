@@ -73,7 +73,7 @@ flowchart LR
 
 ## Try the complete flow in two minutes
 
-Requirements: Node.js 24+, Corepack, and a current Chromium, Firefox, or WebKit browser.
+Requirements: Node.js 24+, Corepack, and a current browser with Web Crypto and IndexedDB.
 
 ```bash
 corepack enable
@@ -96,16 +96,16 @@ explicit browser permission.
 
 ## Technology and components
 
-| Layer             | Technology                                                             |
-| ----------------- | ---------------------------------------------------------------------- |
-| Interface         | React 19, TypeScript, Vite 8, hand-authored responsive CSS             |
-| Offline runtime   | Installable PWA, service worker precache, IndexedDB                    |
-| Cryptography      | Web Crypto API, ECDSA P-256/SHA-256, SHA-256 content addressing        |
-| Optical transport | `qrcode`, ZXing browser/core, 2 FPS QR profile, CRC32 frames           |
-| Protocol          | Strict canonical JSON, bounded packets, signed append-only relay chain |
-| Tooling           | pnpm workspaces, Turborepo, ESLint, Prettier, Vitest, Node test runner |
-| Browser QA        | Playwright on Chromium, Firefox, and WebKit                            |
-| Supply-chain QA   | GitHub Actions, CodeQL, dependency review, lockfile audit              |
+| Layer             | Technology                                                              |
+| ----------------- | ----------------------------------------------------------------------- |
+| Interface         | React 19, TypeScript, Vite 8, hand-authored responsive CSS              |
+| Offline runtime   | Installable PWA, service worker precache, IndexedDB                     |
+| Cryptography      | Web Crypto API, ECDSA P-256/SHA-256, SHA-256 content addressing         |
+| Optical transport | `qrcode`, ZXing browser/core, 2 FPS QR profile, CRC32 frames            |
+| Protocol          | Strict canonical JSON, bounded packets, signed append-only relay chain  |
+| Tooling           | pnpm workspaces, Turborepo, ESLint, Prettier, Vitest, Node test runner  |
+| Browser QA        | Playwright on desktop Chromium, mobile Chrome, and mobile Safari/WebKit |
+| Supply-chain QA   | GitHub Actions, CodeQL, dependency review, lockfile audit               |
 
 No cloud API, account system, database server, radio accessory, or custom electronics are required.
 
@@ -137,7 +137,7 @@ pnpm validate
 ```
 
 It runs formatting, lint, type checking, unit tests, a production build, and Playwright end-to-end
-tests across Chromium, Firefox, and WebKit. The automated suite covers:
+tests across desktop Chromium, mobile Chrome, and mobile Safari/WebKit. The automated suite covers:
 
 - canonical serialization, signing, tamper rejection, strict parsing, framing, and relay limits;
 - create → QR/frame pack → receive → verify → persist → reload;
