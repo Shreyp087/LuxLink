@@ -25,7 +25,9 @@ Submission deadline from the event brief: **September 5, 2026 at 5:00 PM EDT**
 - [x] Public source URL included in all submission material.
 - [x] Safety boundary and prototype limitations stated clearly.
 - [x] `pnpm validate` passes on the final local state.
-- [ ] Confirm green CI and security workflows on the pushed commit.
+- [x] Submission package commit `39e2f9d` passed
+      [continuous integration](https://github.com/Shreyp087/LuxLink/actions/runs/33908524912) and
+      [security analysis](https://github.com/Shreyp087/LuxLink/actions/runs/33908524899).
 
 ## Devpost actions
 
