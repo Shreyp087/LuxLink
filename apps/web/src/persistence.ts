@@ -1,6 +1,6 @@
 import { canonicalJson, type SigningIdentity, type TransportPacketV1 } from '@luxlink/protocol';
 
-const DATABASE_NAME = 'lightmule-field-store';
+const DATABASE_NAME = 'luxlink-field-store';
 const DATABASE_VERSION = 1;
 
 export interface LocalIdentityRecord extends SigningIdentity {

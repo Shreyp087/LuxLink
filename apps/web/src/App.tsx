@@ -45,7 +45,7 @@ interface Receipt {
 }
 
 interface ContactCard {
-  readonly version: 'lightmule.contact.v1';
+  readonly version: 'luxlink.contact.v1';
   readonly name: string;
   readonly keyId: string;
   readonly publicKey: string;
@@ -351,7 +351,7 @@ function App() {
   const downloadFramePack = () => {
     if (transmission === undefined) return;
     downloadText(
-      `lightmule-${transmission.bundleId.slice(0, 10)}.luxlink`,
+      `luxlink-${transmission.bundleId.slice(0, 10)}.luxlink`,
       `${transmission.frames.join('\n')}\n`,
       'application/x-luxlink',
     );
@@ -405,13 +405,13 @@ function App() {
   const exportContact = () => {
     if (identity === undefined) return;
     const contact: ContactCard = {
-      version: 'lightmule.contact.v1',
+      version: 'luxlink.contact.v1',
       name: identity.name,
       keyId: identity.keyId,
       publicKey: identity.publicKeyEncoded,
     };
     downloadText(
-      `lightmule-contact-${identity.keyId.slice(0, 8)}.json`,
+      `luxlink-contact-${identity.keyId.slice(0, 8)}.json`,
       JSON.stringify(contact, null, 2),
       'application/json',
     );
@@ -436,7 +436,7 @@ function App() {
       }
       const card = candidate as Partial<ContactCard>;
       if (
-        card.version !== 'lightmule.contact.v1' ||
+        card.version !== 'luxlink.contact.v1' ||
         typeof card.name !== 'string' ||
         typeof card.keyId !== 'string' ||
         typeof card.publicKey !== 'string'
@@ -496,9 +496,9 @@ function App() {
         Skip to field console
       </a>
       <header className="topbar">
-        <a className="brand" href="#top" aria-label="LightMule home">
+        <a className="brand" href="#top" aria-label="LuxLink home">
           <BrandMark />
-          <span className="brand__name">LIGHTMULE</span>
+          <span className="brand__name">LUXLINK</span>
           <span className="brand__tag">FIELD RELAY / 01</span>
         </a>
         <div className="topbar__status" aria-label="System status">
@@ -516,7 +516,7 @@ function App() {
       </header>
 
       <aside className="side-index" aria-label="Page index">
-        <span>LM//FIELD</span>
+        <span>LX//FIELD</span>
         <span>LOCAL CRYPTO</span>
         <span>QR / ES256</span>
         <span className="side-index__line" />
@@ -1037,7 +1037,7 @@ function App() {
       <footer>
         <div className="brand">
           <BrandMark />
-          <span className="brand__name">LIGHTMULE</span>
+          <span className="brand__name">LUXLINK</span>
         </div>
         <p>
           Experimental public-safety communications software.
@@ -1047,7 +1047,7 @@ function App() {
         <p className="footer__build">
           LUXLINK PROTOCOL
           <br />
-          FIELD BUILD 0002 / 2026
+          FIELD BUILD 0003 / 2026
         </p>
       </footer>
     </main>

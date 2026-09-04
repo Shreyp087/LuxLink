@@ -1,4 +1,4 @@
-# LightMule Protocol v1
+# LuxLink Protocol v1
 
 Status: hackathon MVP specification. It is not an Internet standard and has not
 received independent security review.
@@ -47,7 +47,7 @@ Required fields:
 
 | Field                    | Rule                                                  |
 | ------------------------ | ----------------------------------------------------- |
-| `version`                | Exactly `lightmule.bundle.v1`                         |
+| `version`                | Exactly `luxlink.bundle.v1`                           |
 | `incidentId`             | 1-64 UTF-8 bytes; letters, digits, `.`, `_`, `:`, `-` |
 | `sourceKeyId`            | SHA-256 of the origin SPKI, base64url without padding |
 | `createdAt`, `expiresAt` | Unix epoch milliseconds as safe integers              |
@@ -98,7 +98,7 @@ must be monotonic and may not be unreasonably far in the verifier's future.
 
 ## 6. Self-contained transport packet
 
-The transport packet version is `lightmule.packet.v1`. It contains a relay envelope and a
+The transport packet version is `luxlink.packet.v1`. It contains a relay envelope and a
 `publicKeys` object mapping every unique origin and relay key ID to its base64url-encoded P-256 SPKI.
 The set must be exact: missing and unrelated keys are rejected. Each decoded key is re-derived and
 must match its claimed SHA-256 key ID before signature verification begins.
@@ -126,7 +126,7 @@ Every frame contains:
 The compact text wire form is:
 
 ```text
-LM1.<sessionId>.<transferId>.<index-base36>.<total-base36>.<crc32>.<payload>
+LX1.<sessionId>.<transferId>.<index-base36>.<total-base36>.<crc32>.<payload>
 ```
 
 All separators are literal periods. Numeric fields use lowercase canonical base36 without leading
@@ -156,7 +156,7 @@ layer without changing the signed envelope.
 
 ## 9. Application optical profile
 
-Field build 0002 fixes an intentionally conservative profile:
+Field build 0003 fixes an intentionally conservative profile:
 
 - 72 raw payload bytes per frame;
 - QR error-correction level M with the required four-module quiet zone;

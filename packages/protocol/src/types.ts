@@ -1,9 +1,9 @@
-export const BUNDLE_VERSION = 'lightmule.bundle.v1' as const;
-export const SIGNED_VERSION = 'lightmule.signed.v1' as const;
-export const RELAY_VERSION = 'lightmule.relay.v1' as const;
-export const FRAME_VERSION = 'lightmule.frame.v1' as const;
-export const PACKET_VERSION = 'lightmule.packet.v1' as const;
-export const RELAY_STATEMENT_VERSION = 'lightmule.relay-statement.v1' as const;
+export const BUNDLE_VERSION = 'luxlink.bundle.v1' as const;
+export const SIGNED_VERSION = 'luxlink.signed.v1' as const;
+export const RELAY_VERSION = 'luxlink.relay.v1' as const;
+export const FRAME_VERSION = 'luxlink.frame.v1' as const;
+export const PACKET_VERSION = 'luxlink.packet.v1' as const;
+export const RELAY_STATEMENT_VERSION = 'luxlink.relay-statement.v1' as const;
 
 export const PRIORITIES = ['critical', 'high', 'normal', 'low'] as const;
 export const MESSAGE_KINDS = ['sos', 'hazard', 'resource', 'status', 'ack'] as const;

@@ -1,4 +1,4 @@
-# Product brief: LightMule field relay
+# Product brief: LuxLink field relay
 
 ## Mission
 

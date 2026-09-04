@@ -158,13 +158,14 @@ describe('optical frames', () => {
 
   it('round-trips shuffled frames and validates CRC', async () => {
     const data = utf8Encode(
-      'LightMule carries a signed emergency bundle across the outage. '.repeat(12),
+      'LuxLink carries a signed emergency bundle across the outage. '.repeat(12),
     );
     const frames = await chunkTransfer(data, {
       chunkSize: 80,
       sessionId: new Uint8Array(12).fill(5),
     });
     const encoded = frames.map(encodeFrame);
+    assert.match(encoded[0]!, /^LX1\./u);
     const decoded = encoded.map(decodeFrame).reverse();
     assert.deepEqual(await reassembleFrames(decoded), data);
 
@@ -234,4 +235,4 @@ describe('self-contained transport packets', () => {
   });
 });
 
-assert.equal(BUNDLE_VERSION, 'lightmule.bundle.v1');
+assert.equal(BUNDLE_VERSION, 'luxlink.bundle.v1');

@@ -2,7 +2,7 @@
 
 Status: MVP implementation contract  
 Design direction: Signal Ledger  
-Public-facing working name: LightMule  
+Public-facing working name: LuxLink
 Last reviewed: 2026-09-04
 
 ## Product surfaces
@@ -50,7 +50,7 @@ Primary navigation is `Desk`, `Receive`, `Compose`, `Vault`. Setup is reached fr
 
 ```text
 +--------------------------------------------------------------------------------+
-| LIGHTMULE / FIELD DESK       INCIDENT 24-091      READY WITHOUT NETWORK    09:41 |
+| LUXLINK / FIELD DESK       INCIDENT 24-091      READY WITHOUT NETWORK    09:41 |
 +----------------------+---------------------------------------------------------+
 | 01 DESK              |                                                         |
 | 02 RECEIVE           |                  CURRENT TASK                            |
@@ -71,7 +71,7 @@ Primary navigation is `Desk`, `Receive`, `Compose`, `Vault`. Setup is reached fr
 
 ```text
 +----------------------------------+
-| LIGHTMULE             READY  09:41|
+| LUXLINK             READY  09:41|
 | INCIDENT 24-091                  |
 +----------------------------------+
 |                                  |
@@ -93,7 +93,7 @@ The landing page should feel like a one-page field manual, not a feature SaaS te
 ### Section 00 - utility header
 
 ```text
-LIGHTMULE                         FIELD TEST 0.1 / GITHUB / LAUNCH APP ->
+LUXLINK                         FIELD TEST 0.1 / GITHUB / LAUNCH APP ->
 ```
 
 - Transparent over hero only if contrast remains solid; otherwise service-paper.
@@ -270,7 +270,7 @@ CERTAINTY / how confident is this report?
 
 Before the browser prompt, explain:
 
-> LightMule needs the camera to read a code shown on another device. Frames are decoded on this device and are not uploaded.
+> LuxLink needs the camera to read a code shown on another device. Frames are decoded on this device and are not uploaded.
 
 Actions: `Continue to camera` and `Use encoded sample`.
 

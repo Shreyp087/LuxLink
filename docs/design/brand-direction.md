@@ -13,9 +13,11 @@ The brand is not "futuristic AI." It is a contemporary public utility with the a
 
 ## Naming note
 
-`LuxLink` is the repository and current product codename. Prior research found existing uses of LuxLink in optical networking and research, so do not invest in a final legal wordmark or claim trademark ownership without clearance. `LightMule` remains the recommended public-facing working name for the store-carry-forward pivot. All tokens and components should keep the visible product name configurable.
-
-The examples below use **LightMule** for product copy and **LuxLink** for technical/repository references. This is a design recommendation, not legal advice.
+**LuxLink is the single canonical name** for the product, repository, package namespace, data
+formats, and public submission. Do not introduce an alias or former working name in product copy.
+Prior research found existing uses of “LuxLink” in other fields, so the name still requires normal
+legal clearance before commercial launch. Do not claim trademark ownership. This is a naming
+decision for the prototype, not legal advice.
 
 ## Positioning
 

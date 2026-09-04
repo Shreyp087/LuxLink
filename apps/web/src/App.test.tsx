@@ -8,7 +8,7 @@ vi.mock('qrcode', () => ({
   },
 }));
 
-describe('LightMule field console', () => {
+describe('LuxLink field console', () => {
   it('states the safety boundary and initializes an offline identity', async () => {
     render(<App />);
     expect(screen.getByText(/Not a replacement for emergency networks/i)).toBeTruthy();

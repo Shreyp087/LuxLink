@@ -1,6 +1,6 @@
 # @luxlink/protocol
 
-Dependency-free TypeScript primitives for LightMule/LuxLink emergency bundles and
+Dependency-free TypeScript primitives for LuxLink emergency bundles and
 screen-to-camera transfer frames.
 
 This package deliberately does less than a general messaging protocol. It signs a

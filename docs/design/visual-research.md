@@ -150,7 +150,8 @@ The initial `apps/web` direction was reviewed against this research. It is alrea
 
 ### Preserve
 
-- **The public naming split.** `LIGHTMULE` is visible while `LUXLINK REPOSITORY` remains in the colophon.
+- **The unified name.** `LUXLINK` is used consistently in the interface, repository, protocol, and
+  submission materials.
 - **The hero thesis.** `When the network stops, the message walks.` is concrete, ownable, and accurately centers physical custody.
 - **Warm paper + black instrument field.** This gives daylight legibility and a credible physical character.
 - **Protocol facts as visual material.** Frame rate, signing algorithm, message ID, age, hops, size, and signature make the technology visible.

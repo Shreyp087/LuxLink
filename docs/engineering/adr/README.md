@@ -14,6 +14,7 @@ Valid statuses are `Proposed`, `Accepted`, `Rejected`, `Deprecated`, and `Supers
 
 ## Index
 
-| ADR                                | Status   | Decision                                       |
-| ---------------------------------- | -------- | ---------------------------------------------- |
-| [0001](0001-monorepo-toolchain.md) | Accepted | TypeScript/pnpm/Turborepo engineering baseline |
+| ADR                                  | Status   | Decision                                        |
+| ------------------------------------ | -------- | ----------------------------------------------- |
+| [0001](0001-monorepo-toolchain.md)   | Accepted | TypeScript/pnpm/Turborepo engineering baseline  |
+| [0002](0002-unified-luxlink-name.md) | Accepted | LuxLink as the single project and protocol name |

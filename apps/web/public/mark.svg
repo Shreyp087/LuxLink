@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
-  <title id="title">LightMule optical relay mark</title>
+  <title id="title">LuxLink optical relay mark</title>
   <rect width="128" height="128" rx="22" fill="#111610"/>
   <path fill="#ff4d17" d="M22 22h35v12H34v23H22zm49 0h35v35H94V34H71zM22 71h12v23h23v12H22zm72 0h12v35H71V94h23z"/>
   <circle cx="64" cy="64" r="10" fill="#f2efe7"/>

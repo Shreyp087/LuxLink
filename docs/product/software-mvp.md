@@ -1,6 +1,6 @@
 # Software MVP acceptance record
 
-Status: implemented and automated as of field build 0002.
+Status: implemented and automated as of field build 0003.
 
 ## Completed path
 

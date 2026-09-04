@@ -5,7 +5,7 @@ import { fail } from './errors.ts';
 import { FRAME_VERSION, type ChunkOptions, type OpticalFrameV1 } from './types.ts';
 import { LIMITS, parseFrame } from './validation.ts';
 
-const FRAME_PREFIX = 'LM1.';
+const FRAME_PREFIX = 'LX1.';
 
 const crcTable = (() => {
   const table = new Uint32Array(256);

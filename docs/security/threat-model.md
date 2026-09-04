@@ -1,4 +1,4 @@
-# LightMule Security and Trust Model
+# LuxLink Security and Trust Model
 
 Status: design review for a hackathon MVP. This document names protections and
 limitations so the demonstration does not imply guarantees the software lacks.

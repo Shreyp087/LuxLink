@@ -1,6 +1,6 @@
 {
-  "name": "LightMule Field Relay",
-  "short_name": "LightMule",
+  "name": "LuxLink Field Relay",
+  "short_name": "LuxLink",
   "description": "Signed, human-carried emergency messaging over visible light.",
   "start_url": "/",
   "display": "standalone",
