@@ -1,0 +1,14 @@
+packages:
+  - apps/*
+  - packages/*
+  - tooling/*
+
+cleanupUnusedCatalogs: true
+
+strictPeerDependencies: true
+
+onlyBuiltDependencies:
+  - esbuild
+
+allowBuilds:
+  simple-git-hooks: true

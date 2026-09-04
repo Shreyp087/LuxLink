@@ -1,0 +1,54 @@
+{
+  "name": "luxlink",
+  "version": "0.0.0",
+  "private": true,
+  "description": "LuxLink offline optical communications monorepo",
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@11.19.0",
+  "engines": {
+    "node": ">=24.0.0",
+    "pnpm": ">=11.0.0"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test:unit && pnpm build",
+    "clean": "turbo run clean && rimraf .turbo coverage playwright-report test-results",
+    "commitlint": "commitlint --edit",
+    "dev": "turbo run dev --parallel",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix",
+    "prepare": "simple-git-hooks",
+    "test": "turbo run test",
+    "test:e2e": "playwright test --pass-with-no-tests",
+    "test:e2e:ui": "playwright test --ui",
+    "test:unit": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "validate": "pnpm check && pnpm test:e2e"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@eslint/js": "^9.35.0",
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^24.3.0",
+    "eslint": "^9.35.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.3.0",
+    "lint-staged": "^16.1.6",
+    "prettier": "^3.6.2",
+    "rimraf": "^6.0.1",
+    "simple-git-hooks": "^2.13.1",
+    "turbo": "^2.5.6",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.42.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged",
+    "commit-msg": "pnpm commitlint --edit \"$1\""
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,mjs,cjs,json,jsonc,md,mdx,yml,yaml,css,scss,html}": "prettier --write"
+  }
+}

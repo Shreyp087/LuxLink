@@ -1,0 +1,64 @@
+name: Bug report
+description: Report a reproducible defect in LuxLink.
+title: 'bug: '
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping make LuxLink more reliable. Do not include sensitive incident data or cryptographic keys.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What happened, and what did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Provide the smallest exact sequence that reproduces the issue.
+      placeholder: |
+        1. Open...
+        2. Select...
+        3. Observe...
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Send or encode
+        - Receive or decode
+        - Relay or storage
+        - Verification or security
+        - Offline/PWA
+        - Accessibility/UI
+        - Tooling/CI
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Device, operating system, browser and version.
+      placeholder: Pixel 8, Android 16, Chrome 140
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Non-sensitive evidence
+      description: Add sanitized logs, screenshots, or recordings. Remove payloads, identifiers, and keys.
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed secrets and personally identifiable or incident-sensitive information.
+          required: true
+        - label: This is not a vulnerability report; security issues use the private process in SECURITY.md.
+          required: true

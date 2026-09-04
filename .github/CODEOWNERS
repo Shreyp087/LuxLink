@@ -1,0 +1,15 @@
+# Default ownership. Add domain owners as the team grows.
+* @Shreyp087
+
+# Role boundaries. The repository owner temporarily covers every role until
+# dedicated GitHub teams exist; replace the handle per line without changing
+# the boundary model documented in docs/engineering/team-operating-model.md.
+/.github/ @Shreyp087
+/docs/engineering/ @Shreyp087
+/apps/web/ @Shreyp087
+/tests/e2e/ @Shreyp087
+/packages/protocol/ @Shreyp087
+/docs/design/ @Shreyp087
+
+# High-risk policy surfaces always require explicit owner review.
+/SECURITY.md @Shreyp087
