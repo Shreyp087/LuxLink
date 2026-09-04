@@ -21,14 +21,15 @@ Submission deadline from the event brief: **September 5, 2026 at 5:00 PM EDT**
       limitations.
 - [x] Ready-to-paste Devpost narrative.
 - [x] Reproducible no-hardware demo script.
-- [x] 55-second narrated MP4 demo with burned-in explanatory captions.
+- [x] 93-second cinematic MP4 with character voices, burned-in captions, original score, and a
+      real two-browser relay.
 - [x] Real product screenshots generated from the production application.
 - [x] Public source URL included in all submission material.
 - [x] Safety boundary and prototype limitations stated clearly.
 - [x] `pnpm validate` passes on the final local state.
-- [x] Submission package commit `39e2f9d` passed
-      [continuous integration](https://github.com/Shreyp087/LuxLink/actions/runs/33908524912) and
-      [security analysis](https://github.com/Shreyp087/LuxLink/actions/runs/33908524899).
+- [x] Continuous integration and security analysis are configured as required checks; confirm the
+      latest green runs on the [Actions page](https://github.com/Shreyp087/LuxLink/actions) before
+      final submission.
 
 ## Devpost actions
 

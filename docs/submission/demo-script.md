@@ -1,74 +1,50 @@
-# LuxLink 90-second no-hardware demo
+# LuxLink 93-second cinematic demo
 
-This path needs one browser and exercises the real framing, reassembly, hashing, parsing, signature,
-storage, and relay code. Keep the browser at 100% zoom and use a 1440 × 900 or larger window.
+The film combines an illustrated simulated scenario with a recording of the real production app.
+It needs one computer and no special hardware. The sender and receiver run at separate loopback
+origins so they have independent browser storage and identities.
 
-## Before recording
+## Storyboard
 
-1. Run `pnpm dev` and open the printed local URL.
-2. Wait for **OFFLINE CORE READY**.
-3. Reload once so the service worker and identity are settled.
-4. Keep the default message, or enter: `Medical supplies needed at the east shelter.`
-5. Close unrelated tabs and hide notifications.
+| Time      | Story beat          | Picture and proof                                                                             |
+| --------- | ------------------- | --------------------------------------------------------------------------------------------- |
+| 0:00–0:15 | The outage          | Maya's clinic and Arun's shelter remain reachable by foot, but every network path is gone.    |
+| 0:15–0:29 | The existing gap    | Conventional messengers assume connectivity; Arun sees that a person can cross the gap.       |
+| 0:29–0:41 | The insight         | Sign the message, turn it into visible light, and make the person the network.                |
+| 0:41–0:51 | Write and sign      | Maya's browser creates the bounded message and signs its exact bytes locally.                 |
+| 0:51–1:01 | Optical handoff     | The sender emits paced QR frames; the second browser receives them without network transport. |
+| 1:01–1:10 | Verify honestly     | The receiver rebuilds the bytes and separates signature integrity from human trust.           |
+| 1:10–1:18 | Store, carry, relay | Arun's isolated store persists the packet and appends custody without changing the source.    |
+| 1:18–1:33 | Resolution          | The shelter can act; LuxLink closes on “When the network stops, the message walks.”           |
 
-## Spoken demo and actions
+The complete spoken copy is in `video-narration.txt`. Captions are burned in so the film remains
+understandable when a judge watches muted.
 
-### 0:00–0:12 — The problem
+## What is simulated and what is real
 
-**Show:** hero and system constraints.
+- The storm, clinic, shelter, Maya, and Arun are an illustrated scenario, labeled **SIMULATED
+  SCENARIO** throughout.
+- The write, P-256 signature, QR generation, frame export/import, digest check, signature
+  verification, IndexedDB storage, and signed custody hop are performed by the production app.
+- `127.0.0.1` and `localhost` provide two isolated browser origins on the same computer. This proves
+  separate identities and stores without claiming a physical camera test.
+- LuxLink remains an experimental prototype, not an emergency service or a replacement for public
+  warning networks.
 
-**Say:** “When an outage breaks the network, nearby places become disconnected even if people can
-still move between them. LuxLink turns that movement into a secure store–carry–forward link using
-only a browser, a screen, and optionally a camera.”
+## Re-recording
 
-### 0:12–0:30 — Create and sign
+1. Build and preview `@luxlink/web` on a loopback address.
+2. Run `LUXLINK_DEMO_URL=http://127.0.0.1:4173 node scripts/record-demo.mjs`.
+3. The recorder writes a silent 1280 × 720 WebM to the operating-system temporary directory.
+4. Add narration and music in post, preserving the 93-second timeline above, and export H.264/AAC
+   MP4 with web-optimized metadata.
 
-**Do:** scroll to the field system. Point out the incident, priority, expiry, hop limit, and local
-fingerprint. Select **SIGN & PREPARE SIGNAL**.
+The repository's final `docs/assets/luxlink-demo.mp4` adds three character performances and an
+original ambient score. The four `docs/assets/story-*.png` panels are the authored story art.
 
-**Say:** “The browser bounds and canonicalizes this emergency message, hashes it, and signs it with
-a local P-256 identity. No account, cloud API, or backend is involved.”
+## Optional live proof after playback
 
-### 0:30–0:48 — Optical packet
-
-**Show:** the moving QR code, frame count, bundle fingerprint, hop count, and expiry. Pause once if
-needed.
-
-**Say:** “This is not one oversized QR code. The signed self-contained packet is split into paced,
-order-independent frames. Each frame has a corruption check, and the full transfer is protected by
-a SHA-256 digest.”
-
-### 0:48–1:05 — Verify without hardware
-
-**Do:** select **VERIFY ON THIS DEVICE**. LuxLink moves to **SCAN** and displays
-**CRYPTOGRAPHIC INTEGRITY VALID**.
-
-**Say:** “For judging with one computer, loopback uses the same collector, parser, hash check, and
-signature verifier as camera reception. A second device can scan the same sequence directly.”
-
-### 1:05–1:20 — Explain honest trust
-
-**Show:** the verified receipt and trusted-source state.
-
-**Say:** “A signature proves the bytes survived; it does not automatically prove the signer is an
-authority. LuxLink keeps cryptographic integrity and approved identity trust visibly separate.”
-
-### 1:20–1:30 — Carry and relay
-
-**Do:** open **CARRY**, show the saved message, then select **SIGN + RELAY**.
-
-**Say:** “The packet persists offline. A carrier can append a signed custody hop and transmit it
-again without changing the original message. When the network stops, the message walks.”
-
-## Optional proof after the main demo
-
-- Turn network emulation off and reload to show the precached shell and saved inbox.
-- Download a `.luxlink` frame pack and import it in a fresh browser profile.
-- Use a second phone or laptop to show live screen-to-camera reception.
-- Run `pnpm validate` and show the three-profile Playwright result.
-
-## Recording fallback
-
-If a live camera is unreliable under stage lighting, use **VERIFY ON THIS DEVICE** for the main
-demo and describe the camera as the alternate carrier. Do not call the prototype field-tested or
-encrypted.
+- Open the sender and receiver in separate profiles or on two devices.
+- Display the QR sequence on the sender and select **START CAMERA** on the receiver.
+- Turn network emulation off and reload to show the precached shell and persisted inbox.
+- Run `pnpm validate` and show the desktop and mobile Playwright journeys.

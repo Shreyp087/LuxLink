@@ -1,10 +1,28 @@
-During an outage, nearby places can become isolated even when people can still move. LuxLink turns
-one browser into a human-carried offline relay. Write a short, time-bounded emergency message. A
-local P-256 identity signs the exact bytes; no account or cloud API is involved. The packet becomes
-paced QR frames with corruption checks and a SHA-256 transfer digest. A second device can scan them
-by camera. For this hardware-free demo, Verify on this device uses the same reassembly, parser, hash,
-and signature-verification pipeline. The receipt separates cryptographic integrity from identity
-trust: a valid signature proves the bytes survived, not who the signer represents. The verified
-message is stored locally and remains available offline. A carrier can append a signed custody hop
-and relay it without changing the original message. LuxLink: when the network stops, the message
-walks.
+NARRATOR — At nine fourteen P.M., the storm did something quieter than damage the clinic. It cut
+every path out.
+
+MAYA — The shelter needs our update. Cellular, Wi-Fi, even the cloud. Gone.
+
+NARRATOR — Every ordinary messenger assumes a continuous connection. But the road under the bridge
+is still open.
+
+ARUN — If I can cross the gap, the message can cross with me.
+
+NARRATOR — That insight became LuxLink: sign the message, turn it into visible light, and let a
+person carry the verified packet.
+
+NARRATOR — At the clinic, Maya writes a time-bounded message. Her browser signs the exact bytes
+with a local identity. No account. No server.
+
+NARRATOR — LuxLink splits the signed packet into paced QR frames. Arun's isolated browser receives
+the same light. No network transport involved.
+
+NARRATOR — The shelter rebuilds the bytes and verifies every signature. Integrity is computed.
+Trust stays a human decision.
+
+NARRATOR — Arun adds a signed custody hop, preserving Maya's original message.
+
+NARRATOR — The network never returned. It didn't have to. The signed message crossed the gap, and
+the shelter could act.
+
+NARRATOR — LuxLink. When the network stops, the message walks.

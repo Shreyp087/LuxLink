@@ -135,9 +135,11 @@ https://github.com/Shreyp087/LuxLink
 
 ## Demo video
 
-The repository includes a 55-second narrated, captioned demonstration at
-`docs/assets/luxlink-demo.mp4`. It shows the real production build completing the write, sign, QR
-transmit, local verify, offline store, and signed-relay path without special hardware.
+The repository includes a 93-second narrated, captioned product story at
+`docs/assets/luxlink-demo.mp4`. A clearly labeled simulated outage follows Maya at a clinic and
+Arun at a shelter, then cuts to two isolated browser origins running the real production build.
+The film completes the write, local signature, QR-frame transfer, independent verification,
+offline store, and signed-relay path on one computer without special hardware.
 
 ## Suggested screenshot captions
 

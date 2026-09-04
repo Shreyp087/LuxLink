@@ -10,7 +10,7 @@ it as QR frames, verify it locally, store it, and relay it onward—without a se
 
 ![LuxLink overview](./docs/assets/luxlink-overview.png)
 
-[▶ Watch the 55-second narrated product demo](./docs/assets/luxlink-demo.mp4)
+[▶ Watch the 93-second cinematic product story](./docs/assets/luxlink-demo.mp4)
 
 Built for **VoltHacks 2026**. The complete experience works with one computer and no special
 hardware; two camera-equipped devices can demonstrate the real screen-to-camera path.
@@ -123,7 +123,7 @@ docs/product          Product contract and implemented MVP acceptance record
 docs/protocol         LuxLink v1 packet and optical wire specification
 docs/security         Threat model, trust boundary, and explicit non-claims
 docs/submission       Ready-to-paste Devpost copy, demo script, and final checklist
-scripts               Reproducible submission screenshot capture
+scripts               Reproducible submission screenshot and demo-film capture
 ```
 
 Start with the [architecture](./docs/engineering/architecture.md),
@@ -154,8 +154,8 @@ available in [GitHub Actions](https://github.com/Shreyp087/LuxLink/actions).
 ## VoltHacks submission kit
 
 - [Ready-to-paste Devpost submission](./docs/submission/devpost.md)
-- [90-second no-hardware demo script](./docs/submission/demo-script.md)
-- [55-second narrated MP4 demo](./docs/assets/luxlink-demo.mp4)
+- [93-second cinematic demo storyboard](./docs/submission/demo-script.md)
+- [93-second narrated MP4 demo](./docs/assets/luxlink-demo.mp4)
 - [Final submission checklist](./docs/submission/checklist.md)
 - [Product screenshots](./docs/assets)
 - [Source repository](https://github.com/Shreyp087/LuxLink)
