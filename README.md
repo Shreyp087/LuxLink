@@ -10,6 +10,8 @@ it as QR frames, verify it locally, store it, and relay it onward—without a se
 
 ![LuxLink overview](./docs/assets/luxlink-overview.png)
 
+[▶ Watch the 55-second narrated product demo](./docs/assets/luxlink-demo.mp4)
+
 Built for **VoltHacks 2026**. The complete experience works with one computer and no special
 hardware; two camera-equipped devices can demonstrate the real screen-to-camera path.
 
@@ -153,6 +155,7 @@ available in [GitHub Actions](https://github.com/Shreyp087/LuxLink/actions).
 
 - [Ready-to-paste Devpost submission](./docs/submission/devpost.md)
 - [90-second no-hardware demo script](./docs/submission/demo-script.md)
+- [55-second narrated MP4 demo](./docs/assets/luxlink-demo.mp4)
 - [Final submission checklist](./docs/submission/checklist.md)
 - [Product screenshots](./docs/assets)
 - [Source repository](https://github.com/Shreyp087/LuxLink)

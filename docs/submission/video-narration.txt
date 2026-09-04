@@ -1,0 +1,10 @@
+During an outage, nearby places can become isolated even when people can still move. LuxLink turns
+one browser into a human-carried offline relay. Write a short, time-bounded emergency message. A
+local P-256 identity signs the exact bytes; no account or cloud API is involved. The packet becomes
+paced QR frames with corruption checks and a SHA-256 transfer digest. A second device can scan them
+by camera. For this hardware-free demo, Verify on this device uses the same reassembly, parser, hash,
+and signature-verification pipeline. The receipt separates cryptographic integrity from identity
+trust: a valid signature proves the bytes survived, not who the signer represents. The verified
+message is stored locally and remains available offline. A carrier can append a signed custody hop
+and relay it without changing the original message. LuxLink: when the network stops, the message
+walks.

@@ -21,6 +21,7 @@ Submission deadline from the event brief: **September 5, 2026 at 5:00 PM EDT**
       limitations.
 - [x] Ready-to-paste Devpost narrative.
 - [x] Reproducible no-hardware demo script.
+- [x] 55-second narrated MP4 demo with burned-in explanatory captions.
 - [x] Real product screenshots generated from the production application.
 - [x] Public source URL included in all submission material.
 - [x] Safety boundary and prototype limitations stated clearly.
@@ -38,6 +39,7 @@ Submission deadline from the event brief: **September 5, 2026 at 5:00 PM EDT**
 - [ ] Link https://github.com/Shreyp087/LuxLink and confirm it is publicly visible while signed out.
 - [ ] Upload `luxlink-overview.png`, `luxlink-optical-transfer.png`, and
       `luxlink-verified-receipt.png` with the prepared captions.
+- [ ] Upload or host `luxlink-demo.mp4` if the submission form offers a demo-video field.
 - [ ] Add the participant/team details exactly as registered for VoltHacks.
 - [ ] Preview the submission on desktop and mobile; check links and image crops.
 - [ ] Submit before the deadline and save the confirmation page.

@@ -133,6 +133,12 @@ Open Innovation / Anything Engineering Based with Impact.
 
 https://github.com/Shreyp087/LuxLink
 
+## Demo video
+
+The repository includes a 55-second narrated, captioned demonstration at
+`docs/assets/luxlink-demo.mp4`. It shows the real production build completing the write, sign, QR
+transmit, local verify, offline store, and signed-relay path without special hardware.
+
 ## Suggested screenshot captions
 
 1. **The full field system:** LuxLink exposes the operating constraints and complete local workflow
