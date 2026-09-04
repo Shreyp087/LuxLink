@@ -12,11 +12,16 @@ modern Node.js.
 ```ts
 import {
   appendRelayHop,
+  chunkTransfer,
   createBundle,
   createRelayEnvelope,
+  createTransportPacket,
+  encodeFrame,
+  encodeTransportPacket,
+  exportPublicKey,
   generateSigningIdentity,
   signBundle,
-  verifyRelayEnvelope,
+  verifyTransportPacket,
 } from '@luxlink/protocol';
 
 const dispatcher = await generateSigningIdentity();
@@ -36,13 +41,18 @@ const bundle = createBundle({
 
 const signed = await signBundle(bundle, dispatcher);
 const relayed = await appendRelayHop(createRelayEnvelope(signed), courier, Date.now());
-
-const keys = new Map([
-  [dispatcher.keyId, dispatcher.publicKey],
-  [courier.keyId, courier.publicKey],
-]);
-const result = await verifyRelayEnvelope(relayed, (keyId) => keys.get(keyId));
+const packet = createTransportPacket(relayed, {
+  [dispatcher.keyId]: await exportPublicKey(dispatcher.publicKey),
+  [courier.keyId]: await exportPublicKey(courier.publicKey),
+});
+const frames = (await chunkTransfer(encodeTransportPacket(packet), { chunkSize: 112 })).map(
+  encodeFrame,
+);
+const result = await verifyTransportPacket(packet);
 ```
+
+`verifyTransportPacket` proves that the embedded keys signed the packet. Applications must still
+compare the origin key ID against a separately provisioned trust registry.
 
 See `docs/protocol/spec-v1.md` and `docs/security/threat-model.md` for the wire
 rules, trust assumptions, and explicit non-claims.

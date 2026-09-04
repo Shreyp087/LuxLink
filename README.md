@@ -45,17 +45,25 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for the engineering workflow and [docs/
 
 ## Current milestone
 
-The first milestone proves one complete path:
+The software MVP implements one complete path:
 
 1. Compose a structured emergency bundle.
-2. Sign it with a pre-enrolled issuer key.
-3. Render a conservative monochrome optical sequence.
-4. Receive it on a second device without a network.
-5. Verify, store, and relay the exact issuer-signed object.
-6. Reject tampered, expired, duplicate, and unknown-authority messages visibly.
+2. Sign it with a locally generated P-256 identity.
+3. Render a conservative 2 FPS monochrome QR sequence.
+4. Receive frames through a live camera, QR image batch, or `.luxlink` frame pack.
+5. Reassemble, hash-check, parse, verify, and store the exact issuer-signed object.
+6. Distinguish cryptographic integrity from explicitly approved source trust.
+7. Append a signed custody hop and optically relay the bundle again.
+8. Reopen the precached application and persisted inbox without a network.
 
-The interface in `apps/web` currently communicates that operating model while the optical codec is developed.
+Use **Verify on this device** for a complete no-hardware loopback. It traverses the same framing,
+reassembly, hashing, parsing, and signature verification code as camera reception. Camera capture
+requires HTTPS or localhost and explicit browser permission.
+
+See [docs/product/software-mvp.md](./docs/product/software-mvp.md) for the implemented acceptance
+record and the remaining physical-field qualification boundary.
 
 ## Safety status
 
-This is an experimental hackathon prototype. It has not been certified, field-tested, independently audited, or endorsed by FEMA, the FCC, or emergency services.
+This is an experimental hackathon prototype. It has not been certified, field-tested on physical
+phone pairs, independently audited, or endorsed by FEMA, the FCC, or emergency services.

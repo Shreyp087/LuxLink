@@ -5,6 +5,7 @@ import {
   FRAME_VERSION,
   MESSAGE_KINDS,
   NEEDS,
+  PACKET_VERSION,
   PRIORITIES,
   RELAY_VERSION,
   SIGNED_VERSION,
@@ -13,6 +14,7 @@ import {
   type OpticalFrameV1,
   type RelayEnvelopeV1,
   type SignatureV1,
+  type TransportPacketV1,
 } from './types.ts';
 
 export const LIMITS = Object.freeze({
@@ -28,6 +30,7 @@ export const LIMITS = Object.freeze({
   maximumBundleJsonBytes: 2_048,
   maximumSignedBundleJsonBytes: 4_096,
   maximumEnvelopeJsonBytes: 32_768,
+  maximumPacketJsonBytes: 40_960,
 } as const);
 
 function record(value: unknown, label: string): Record<string, unknown> {
@@ -292,5 +295,41 @@ export function parseFrame(value: unknown): OpticalFrameV1 {
     total,
     payload,
     crc32,
+  });
+}
+
+export function parseTransportPacket(value: unknown): TransportPacketV1 {
+  const input = record(value, 'transportPacket');
+  exactKeys(input, ['version', 'envelope', 'publicKeys']);
+  if (input.version !== PACKET_VERSION) fail('VERSION', `Expected ${PACKET_VERSION}.`);
+
+  const envelope = parseRelayEnvelope(input.envelope);
+  const keyInput = record(input.publicKeys, 'publicKeys');
+  const signerIds = [
+    envelope.signedBundle.signature.keyId,
+    ...envelope.hops.map((hop) => hop.relayKeyId),
+  ];
+  const expected = new Set(signerIds);
+  const supplied = Object.keys(keyInput);
+  if (supplied.length !== expected.size || supplied.some((id) => !expected.has(id))) {
+    fail('PUBLIC_KEYS', 'publicKeys must contain exactly one key for every unique signer.');
+  }
+
+  const publicKeys: Record<string, string> = {};
+  for (const id of expected) {
+    keyId(id, 'publicKeys key');
+    if (!Object.hasOwn(keyInput, id)) fail('PUBLIC_KEYS', `Missing public key for signer ${id}.`);
+    const encoded = boundedString(keyInput[id], `publicKeys.${id}`, 1, 256);
+    const bytes = fromBase64Url(encoded, `publicKeys.${id}`);
+    if (bytes.byteLength < 80 || bytes.byteLength > 160) {
+      fail('INVALID_PUBLIC_KEY', 'An embedded public key has an invalid encoded size.');
+    }
+    publicKeys[id] = encoded;
+  }
+
+  return Object.freeze({
+    version: PACKET_VERSION,
+    envelope,
+    publicKeys: Object.freeze(publicKeys),
   });
 }

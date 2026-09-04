@@ -70,18 +70,32 @@ As a person moving between disconnected shelters, clinics, or campus checkpoints
 
 Monorepo, CI, ownership, ADRs, threat model, interface system, and deterministic protocol tests.
 
+**Status: complete.**
+
 ### M1 - Trusted local bundle
 
 Compose, canonicalize, sign, verify, persist, deduplicate, expire, and relay a bundle without optical transport.
+
+**Status: complete for the software MVP.**
 
 ### M2 - Conservative optical handoff
 
 Static or animated monochrome QR framing with per-frame validation and explicit receiver progress.
 
+**Status: complete.** Live-camera, image-batch, frame-pack, and no-hardware loopback paths share the
+same collector and verification pipeline.
+
 ### M3 - Recovery and device qualification
 
 Across-frame erasure recovery, device/lighting/range matrix, performance telemetry, safe-mode analysis, and offline installation checks.
 
+**Status: partially complete.** Offline installation is automated. Erasure coding and physical
+device qualification remain post-MVP work because they require field measurements.
+
 ### M4 - Judge-ready field story
 
 Three-hop demonstration, tamper rejection, accessibility pass, measured reliability card, and a recorded fallback demo.
+
+**Status: software support complete; submission production remains.** The application can create
+signed hops and deterministic fallback demos. Recording and measured physical-device claims require
+the submission team and test hardware.

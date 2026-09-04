@@ -21,7 +21,7 @@
     "lint:fix": "eslint . --fix",
     "prepare": "simple-git-hooks",
     "test": "turbo run test",
-    "test:e2e": "playwright test --pass-with-no-tests",
+    "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:unit": "turbo run test",
     "typecheck": "turbo run typecheck",

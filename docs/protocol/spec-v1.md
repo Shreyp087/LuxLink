@@ -10,11 +10,12 @@ can see one another's screens and cameras but cannot use an IP or RF link. The
 optical carrier is replaceable: the signed bundle and relay envelope can also be
 copied over another transport without changing their meaning.
 
-There are three nested objects:
+There are four nested objects:
 
 1. `EmergencyBundleV1` is the origin's message and forwarding policy.
 2. `SignedBundleV1` binds that message to the origin's P-256 public key.
 3. `RelayEnvelopeV1` adds zero or more signed, append-only custody hops.
+4. `TransportPacketV1` carries the envelope with the public keys required to verify it.
 
 Every object is strictly parsed. Unknown fields, non-canonical base64url, unsafe
 integers, excess lengths, and unsupported versions are rejected.
@@ -95,10 +96,24 @@ Relays refuse expired bundles or chains at `maxHops`. A receiver may apply a sma
 clock-skew allowance; the default library allowance is 30 seconds. Relay timestamps
 must be monotonic and may not be unreasonably far in the verifier's future.
 
-## 6. Optical transfer frames
+## 6. Self-contained transport packet
 
-An arbitrary encoded envelope is divided into 1-1024 byte chunks, with 160 bytes
-as the QR-oriented default. A transfer supports at most 4096 frames and 4 MiB.
+The transport packet version is `lightmule.packet.v1`. It contains a relay envelope and a
+`publicKeys` object mapping every unique origin and relay key ID to its base64url-encoded P-256 SPKI.
+The set must be exact: missing and unrelated keys are rejected. Each decoded key is re-derived and
+must match its claimed SHA-256 key ID before signature verification begins.
+
+Embedded public keys make a packet independently integrity-verifiable; they do **not** establish a
+person's or organization's identity. An application grants operational trust only through a
+separate pre-enrollment or fingerprint-comparison process.
+
+Canonical packet JSON is limited to 40 KiB. The current application produces much smaller packets
+for short emergency text.
+
+## 7. Optical transfer frames
+
+An arbitrary encoded transport packet is divided into 1-1024 byte chunks, with 160 bytes as the
+library default. A transfer supports at most 4096 frames and 4 MiB.
 Every frame contains:
 
 - protocol version;
@@ -108,30 +123,55 @@ Every frame contains:
 - base64url payload;
 - CRC32 over the canonical frame body.
 
-The text wire form is `LM1.` followed by base64url-encoded canonical JSON. It is
-limited to 2048 UTF-8 bytes. CRC32 detects camera/decoder corruption; it is not an
-authenticator. The transfer hash detects incorrect reassembly. The origin and
-relay signatures provide authenticity.
+The compact text wire form is:
+
+```text
+LM1.<sessionId>.<transferId>.<index-base36>.<total-base36>.<crc32>.<payload>
+```
+
+All separators are literal periods. Numeric fields use lowercase canonical base36 without leading
+zeroes. Base64url fields cannot contain periods, so the six-field body is unambiguous. The complete
+wire frame is limited to 2048 UTF-8 bytes. CRC32 detects camera/decoder corruption; it is not an
+authenticator. The transfer hash detects incorrect reassembly. Origin and relay signatures provide
+authenticity. The compact form replaced a redundant JSON-plus-base64 wrapper because lower-density
+QR symbols materially improved decoder reliability.
 
 Frames may arrive out of order. The MVP block framing requires every distinct
 frame before reassembly. A future fountain-code profile can replace this erasure
 layer without changing the signed envelope.
 
-## 7. Receiver algorithm
+## 8. Receiver algorithm
 
 1. Reject over-limit frame text before decoding.
 2. Parse a frame, enforce exact fields, and verify CRC32.
 3. Group by `(sessionId, transferId, total)` and deduplicate by index.
 4. Reassemble only after all indexes are present; verify `transferId`.
-5. Strictly parse the relay envelope and enforce time and hop limits.
-6. Resolve the origin key and verify its signature.
-7. Verify each relay prefix and signature in order.
-8. Enforce incident membership, trust role, duplicate, and display policy.
-9. Persist the accepted envelope before showing a successful receipt.
+5. Strictly parse the transport packet and enforce exact embedded signer keys.
+6. Import each public key, derive its key ID, and reject mismatches.
+7. Enforce bundle time and hop limits and verify the origin signature.
+8. Verify each relay prefix and signature in order.
+9. Separately resolve whether the origin fingerprint is operationally trusted.
+10. Persist the accepted envelope before showing a successful receipt; retain first-seen metadata
+    and replace custody history only with an exact signed extension.
 
-## 8. Interoperability boundary
+## 9. Application optical profile
 
-Version 1 defines payload semantics, signatures, relay chaining, and a simple block
-frame. It does not define QR version, error-correction level, display frame rate,
-color modulation, camera exposure, or acknowledgements. Those belong to an optical
-link profile and must be negotiated or fixed by the application.
+Field build 0002 fixes an intentionally conservative profile:
+
+- 72 raw payload bytes per frame;
+- QR error-correction level M with the required four-module quiet zone;
+- pure black modules on a pure white field;
+- 768-pixel generated canvas, responsively scaled for display;
+- two frame changes per second with pause and manual navigation controls.
+
+The receiver uses the same collector for camera results, uploaded QR images, imported frame packs,
+and local loopback. Frames are order-independent and duplicates are idempotent. An accepted transfer
+latches until the operator resets the collector. Image import first uses scene detection, then a
+pure-symbol fallback for application-exported QR PNGs.
+
+## 10. Interoperability boundary
+
+Version 1 defines payload semantics, signatures, relay chaining, a self-contained packet, and a
+simple block frame. QR version, error-correction level, display frame rate, color modulation, camera
+exposure, and acknowledgements belong to an optical link profile and may differ between compatible
+applications. The profile above records this application's current behavior.

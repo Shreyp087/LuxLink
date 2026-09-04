@@ -4,6 +4,7 @@ export * from './canonical.ts';
 export * from './crypto.ts';
 export * from './errors.ts';
 export * from './frame.ts';
+export * from './packet.ts';
 export * from './relay.ts';
 export * from './types.ts';
 export * from './validation.ts';

@@ -33,7 +33,7 @@ export async function deriveKeyId(publicKey: CryptoKey): Promise<string> {
 }
 
 export async function generateSigningIdentity(): Promise<SigningIdentity> {
-  const pair = await webCrypto().subtle.generateKey(ECDSA, true, ['sign', 'verify']);
+  const pair = await webCrypto().subtle.generateKey(ECDSA, false, ['sign', 'verify']);
   return Object.freeze({
     keyId: await deriveKeyId(pair.publicKey),
     publicKey: pair.publicKey,

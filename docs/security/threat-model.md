@@ -57,6 +57,19 @@ accidental extraction but does not make a general browser a hardware security
 module. High-assurance deployments should use platform key storage and a native
 application after independent review.
 
+Field build 0002 generates its demonstration identity locally, stores the `CryptoKey` objects in
+IndexedDB, marks the private signing key non-exportable, exports only a public contact card through
+the interface, and requires an explicit user action before an unknown source fingerprint becomes
+trusted. Non-exportable does not prevent malicious same-origin code from requesting signatures.
+Transport packets embed verification keys so they can prove integrity while offline. Those embedded
+keys are attacker-controlled input until parsed and matched to their derived IDs, and they never
+grant trust by themselves.
+
+The local message store keeps the first-seen timestamp and original direction for a bundle ID.
+Later packets replace its envelope only when they extend the stored custody chain exactly; shorter
+replays and alternate branches cannot overwrite that history. Trust may be upgraded independently,
+and removing a contact immediately changes the interface's current-trust label.
+
 ## Availability and human safety
 
 An attacker can cover the camera, saturate it with light, display counterfeit

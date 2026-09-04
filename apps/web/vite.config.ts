@@ -1,8 +1,22 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      injectRegister: 'auto',
+      manifest: false,
+      includeAssets: ['mark.svg', 'manifest.webmanifest'],
+      workbox: {
+        cleanupOutdatedCaches: true,
+        globPatterns: ['**/*.{html,js,css,svg,webmanifest,woff,woff2}'],
+        navigateFallback: '/index.html',
+      },
+    }),
+  ],
   server: {
     port: 4173,
     strictPort: true,
@@ -13,7 +27,7 @@ export default defineConfig({
   },
   build: {
     target: 'es2022',
-    sourcemap: true,
+    sourcemap: false,
   },
   test: {
     environment: 'jsdom',

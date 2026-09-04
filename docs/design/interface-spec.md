@@ -140,11 +140,12 @@ Include one flat technical illustration per movement. No icon bubble row.
 Dark `night` background; actual product UI, not a video mockup.
 
 - Toggle network off instruction.
-- Create a small simulated bundle.
+- Create and locally sign a small demonstration bundle.
 - Open sender and receiver in two viewports or provide an encoded sample.
 - Show source hash before and after.
-- Persistent label: `SIMULATION / NOT AN EMERGENCY SERVICE`.
-- If camera access is unavailable, offer `Run encoded sample` without blocking the story.
+- Persistent label: `EXPERIMENTAL / NOT AN EMERGENCY SERVICE`.
+- If camera access is unavailable, offer the real local loopback or frame-pack import without
+  blocking the story.
 
 ### Section 04 - trust anatomy
 

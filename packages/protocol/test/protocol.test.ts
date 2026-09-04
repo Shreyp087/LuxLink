@@ -15,6 +15,10 @@ import {
   decodeBundle,
   encodeBundle,
   encodeFrame,
+  createTransportPacket,
+  decodeTransportPacket,
+  encodeTransportPacket,
+  exportPublicKey,
   generateSigningIdentity,
   parseBundle,
   reassembleFrames,
@@ -22,6 +26,7 @@ import {
   utf8Encode,
   verifyRelayEnvelope,
   verifySignedBundle,
+  verifyTransportPacket,
   crc32,
 } from '../src/index.ts';
 
@@ -74,6 +79,14 @@ describe('canonical JSON and schema', () => {
 });
 
 describe('signatures and relay chain', () => {
+  it('keeps private signing keys non-exportable', async () => {
+    const identity = await generateSigningIdentity();
+    assert.equal(identity.privateKey.extractable, false);
+    assert.equal(identity.publicKey.extractable, true);
+    assert.equal((await exportPublicKey(identity.publicKey)).length > 0, true);
+    await assert.rejects(() => crypto.subtle.exportKey('jwk', identity.privateKey));
+  });
+
   it('verifies an origin signature and rejects tampering', async () => {
     const origin = await generateSigningIdentity();
     const now = 1_800_000_000_000;
@@ -157,6 +170,10 @@ describe('optical frames', () => {
 
     const corrupt = `${encoded[0]!.slice(0, -1)}${encoded[0]!.endsWith('A') ? 'B' : 'A'}`;
     assert.throws(() => decodeFrame(corrupt), ProtocolError);
+    const fields = encoded[0]!.split('.');
+    fields[3] = '00';
+    assert.throws(() => decodeFrame(fields.join('.')), /canonical base36/);
+    assert.throws(() => decodeFrame(`${encoded[0]}.extra`), /six wire fields/);
   });
 
   it('rejects missing, duplicate, and mixed frames', async () => {
@@ -174,6 +191,46 @@ describe('optical frames', () => {
       () => reassembleFrames([a[0]!, b[1]!, a[2]!, a[3]!]),
       /different transfers/,
     );
+  });
+});
+
+describe('self-contained transport packets', () => {
+  it('round-trips and verifies embedded signer keys', async () => {
+    const origin = await generateSigningIdentity();
+    const relay = await generateSigningIdentity();
+    const now = 1_800_000_000_000;
+    const signed = await signBundle(makeBundle(origin.keyId, now), origin);
+    const envelope = await appendRelayHop(createRelayEnvelope(signed), relay, now + 1_000);
+    const packet = createTransportPacket(envelope, {
+      [origin.keyId]: await exportPublicKey(origin.publicKey),
+      [relay.keyId]: await exportPublicKey(relay.publicKey),
+    });
+    const decoded = decodeTransportPacket(encodeTransportPacket(packet));
+    const result = await verifyTransportPacket(decoded, { now: now + 2_000 });
+    assert.equal(result.valid, true);
+    assert.equal(result.hopCount, 1);
+  });
+
+  it('rejects missing, extra, and mismatched public keys', async () => {
+    const origin = await generateSigningIdentity();
+    const other = await generateSigningIdentity();
+    const now = 1_800_000_000_000;
+    const envelope = createRelayEnvelope(await signBundle(makeBundle(origin.keyId, now), origin));
+    assert.throws(() => createTransportPacket(envelope, {}), /exactly one key/);
+    assert.throws(
+      () =>
+        createTransportPacket(envelope, {
+          [origin.keyId]: 'AA',
+          [other.keyId]: 'AA',
+        }),
+      /exactly one key/,
+    );
+    const packet = createTransportPacket(envelope, {
+      [origin.keyId]: await exportPublicKey(other.publicKey),
+    });
+    const result = await verifyTransportPacket(packet, { now });
+    assert.equal(result.valid, false);
+    assert.match(result.error ?? '', /KEY_ID_MISMATCH/);
   });
 });
 

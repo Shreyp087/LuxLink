@@ -1,12 +1,5 @@
-import { canonicalBytes, canonicalJson } from './canonical.ts';
-import {
-  concatBytes,
-  equalBytes,
-  fromBase64Url,
-  toBase64Url,
-  utf8Decode,
-  utf8Encode,
-} from './bytes.ts';
+import { canonicalBytes } from './canonical.ts';
+import { concatBytes, equalBytes, fromBase64Url, toBase64Url, utf8Encode } from './bytes.ts';
 import { sha256 } from './crypto.ts';
 import { fail } from './errors.ts';
 import { FRAME_VERSION, type ChunkOptions, type OpticalFrameV1 } from './types.ts';
@@ -51,7 +44,14 @@ export function encodeFrame(frame: OpticalFrameV1): string {
   const parsed = parseFrame(frame);
   const expected = crc32(canonicalBytes(frameBody(parsed)));
   if (parsed.crc32 !== expected) fail('CRC_MISMATCH', 'Frame CRC32 is invalid.');
-  const encoded = `${FRAME_PREFIX}${toBase64Url(utf8Encode(canonicalJson(parsed)))}`;
+  const encoded = `${FRAME_PREFIX}${[
+    parsed.sessionId,
+    parsed.transferId,
+    parsed.index.toString(36),
+    parsed.total.toString(36),
+    parsed.crc32,
+    parsed.payload,
+  ].join('.')}`;
   if (utf8Encode(encoded).byteLength > LIMITS.maximumEncodedFrameBytes)
     fail('FRAME_SIZE', 'Encoded frame exceeds the protocol limit.');
   return encoded;
@@ -61,21 +61,41 @@ export function decodeFrame(encoded: string): OpticalFrameV1 {
   if (utf8Encode(encoded).byteLength > LIMITS.maximumEncodedFrameBytes)
     fail('FRAME_SIZE', 'Encoded frame exceeds the protocol limit.');
   if (!encoded.startsWith(FRAME_PREFIX)) fail('FRAME_PREFIX', 'Frame prefix is invalid.');
-  let value: unknown;
-  try {
-    const text = utf8Decode(fromBase64Url(encoded.slice(FRAME_PREFIX.length), 'encoded frame'));
-    value = JSON.parse(text);
-    const parsed = parseFrame(value);
-    if (canonicalJson(parsed) !== text) fail('NON_CANONICAL_JSON', 'Frame JSON is not canonical.');
-    value = parsed;
-  } catch (error) {
-    if (error instanceof SyntaxError) return fail('INVALID_JSON', 'Frame is not valid JSON.');
-    throw error;
-  }
-  const frame = parseFrame(value);
+  const fields = encoded.slice(FRAME_PREFIX.length).split('.');
+  if (fields.length !== 6) fail('FRAME_SHAPE', 'Frame must contain six wire fields.');
+  const [sessionId, transferId, encodedIndex, encodedTotal, checksum, payload] = fields as [
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+  ];
+  const index = parseBase36(encodedIndex, 'index');
+  const total = parseBase36(encodedTotal, 'total');
+  const frame = parseFrame({
+    version: FRAME_VERSION,
+    sessionId,
+    transferId,
+    index,
+    total,
+    payload,
+    crc32: checksum,
+  });
   if (frame.crc32 !== crc32(canonicalBytes(frameBody(frame))))
     fail('CRC_MISMATCH', 'Frame CRC32 is invalid.');
   return frame;
+}
+
+function parseBase36(value: string, label: string): number {
+  if (!/^(?:0|[1-9a-z][0-9a-z]*)$/u.test(value)) {
+    return fail('FRAME_INTEGER', `${label} is not canonical base36.`);
+  }
+  const parsed = Number.parseInt(value, 36);
+  if (!Number.isSafeInteger(parsed) || parsed.toString(36) !== value) {
+    return fail('FRAME_INTEGER', `${label} is outside the supported range.`);
+  }
+  return parsed;
 }
 
 export async function chunkTransfer(

@@ -1,24 +1,32 @@
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import App from './App';
 
+vi.mock('qrcode', () => ({
+  default: {
+    toCanvas: vi.fn(() => Promise.resolve()),
+  },
+}));
+
 describe('LightMule field console', () => {
-  it('states the product boundary and offline status', () => {
+  it('states the safety boundary and initializes an offline identity', async () => {
     render(<App />);
-    expect(screen.getByText('READY WITHOUT NETWORK')).toBeTruthy();
     expect(screen.getByText(/Not a replacement for emergency networks/i)).toBeTruthy();
+    expect(await screen.findByText(/LOCAL CORE READY/)).toBeTruthy();
+    expect(screen.getByText(/Local identity ready/i)).toBeTruthy();
   });
 
-  it('advances a simulated optical handoff to verified', async () => {
-    vi.useFakeTimers();
+  it('signs, frames, reconstructs, and verifies a message through loopback', async () => {
     render(<App />);
-    fireEvent.click(screen.getByRole('button', { name: /run field test/i }));
-    expect(screen.getByText('Find signal').closest('li')?.classList.contains('is-reached')).toBe(
-      true,
-    );
-    await act(async () => vi.advanceTimersByTimeAsync(1_500));
-    await act(async () => vi.advanceTimersByTimeAsync(2_400));
-    expect(screen.getByText('SIGNATURE VALID')).toBeTruthy();
-    vi.useRealTimers();
+    const signButton = await screen.findByRole('button', { name: /sign & prepare signal/i });
+    await waitFor(() => expect(signButton.hasAttribute('disabled')).toBe(false));
+    fireEvent.click(signButton);
+
+    const verifyButton = await screen.findByRole('button', { name: /verify on this device/i });
+    fireEvent.click(verifyButton);
+
+    expect(await screen.findByText('CRYPTOGRAPHIC INTEGRITY VALID')).toBeTruthy();
+    expect(screen.getByText('TRUSTED SOURCE')).toBeTruthy();
+    expect(screen.getByText(/unique frames/i)).toBeTruthy();
   });
 });

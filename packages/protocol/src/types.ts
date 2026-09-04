@@ -2,6 +2,7 @@ export const BUNDLE_VERSION = 'lightmule.bundle.v1' as const;
 export const SIGNED_VERSION = 'lightmule.signed.v1' as const;
 export const RELAY_VERSION = 'lightmule.relay.v1' as const;
 export const FRAME_VERSION = 'lightmule.frame.v1' as const;
+export const PACKET_VERSION = 'lightmule.packet.v1' as const;
 export const RELAY_STATEMENT_VERSION = 'lightmule.relay-statement.v1' as const;
 
 export const PRIORITIES = ['critical', 'high', 'normal', 'low'] as const;
@@ -128,4 +129,14 @@ export interface OpticalFrameV1 {
 export interface ChunkOptions {
   readonly chunkSize?: number;
   readonly sessionId?: Uint8Array | string;
+}
+
+/**
+ * Self-contained transport object. Embedded keys prove signature integrity; they do not establish
+ * that a signer is trusted. Applications must compare key IDs through a separate trust channel.
+ */
+export interface TransportPacketV1 {
+  readonly version: typeof PACKET_VERSION;
+  readonly envelope: RelayEnvelopeV1;
+  readonly publicKeys: Readonly<Record<string, string>>;
 }

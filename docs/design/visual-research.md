@@ -154,7 +154,8 @@ The initial `apps/web` direction was reviewed against this research. It is alrea
 - **The hero thesis.** `When the network stops, the message walks.` is concrete, ownable, and accurately centers physical custody.
 - **Warm paper + black instrument field.** This gives daylight legibility and a credible physical character.
 - **Protocol facts as visual material.** Frame rate, signing algorithm, message ID, age, hops, size, and signature make the technology visible.
-- **The honest boundary.** `Not a replacement for emergency networks` and the simulation note are unusually good hackathon communication.
+- **The honest boundary.** `Not a replacement for emergency networks` and explicit experimental
+  status are unusually good hackathon communication.
 - **Hard borders and offset shadow.** These feel constructed rather than template-generated when used sparingly.
 
 ### Refine before treating the prototype as the design-system reference
